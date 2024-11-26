@@ -41,6 +41,12 @@ export class Service {
 
     async updatePost({ title, slug, content, featuredImage, status }) {
         try {
+            // If the featuredImage is a file (not a string), upload it
+            if (featuredImage && typeof featuredImage !== "string") {
+                const fileResponse = await this.uploadFile(featuredImage);
+                featuredImage = fileResponse.$id;
+            }
+    
             return await this.databases.updateDocument(
                 conf.databaseId,
                 conf.collectionId,
@@ -56,6 +62,7 @@ export class Service {
             console.log("Error in update post Appwrite:", error);
         }
     }
+    
 
     async deletePost(slug) {
         try {
