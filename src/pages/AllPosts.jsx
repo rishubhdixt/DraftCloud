@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import service from '../appwrite/config';
 import { Container, PostCard } from '../components';
 
@@ -22,9 +22,13 @@ function AllPosts() {
                             No posts available
                         </div>
                     ) : (
-                        post.map((post) => (
-                            <div key={post.$id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4">
-                                <PostCard post={post} />
+                        post.map((postItem) => (
+                            <div key={postItem.$id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4">
+                                <PostCard
+                                    TITLE={postItem.TITLE}
+                                    FEATURED_IMAGE={postItem.FEATURED_IMAGE}
+                                    $id={postItem.$id}
+                                />
                             </div>
                         ))
                     )}

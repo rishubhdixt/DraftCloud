@@ -17,22 +17,11 @@ export class Service {
 
     async createPost(slug, { title, content, featuredImage, status, userID }) {
         try {
-            // If FEATURED_IMAGE is a file, ensure it's uploaded first
             if (featuredImage && typeof featuredImage !== "string") {
-                const fileResponse = await this.uploadFile(featuredImage); // Upload the file
-                featuredImage = fileResponse.$id; // Update with file ID
-                console.log("Uploaded FEATURED_IMAGE ID:", featuredImage);
+                const fileResponse = await this.uploadFile(featuredImage);
+                featuredImage = fileResponse.$id;
             }
-    
-            // Log the final payload
-            console.log("Payload sent to createDocument:", {
-                TITLE: title,
-                CONTENT: content,
-                FEATURED_IMAGE: featuredImage,
-                STATUS: status,
-                USER_ID: userID
-            });
-    
+
             return await this.databases.createDocument(
                 conf.databaseId,
                 conf.collectionId,
@@ -40,17 +29,16 @@ export class Service {
                 {
                     TITLE: title,
                     CONTENT: content,
-                    FEATURED_IMAGE: featuredImage, // This is the file ID
+                    FEATURED_IMAGE: featuredImage,
                     STATUS: status,
-                    USER_ID: userID
+                    USER_ID: userID,
                 }
             );
         } catch (error) {
-            console.error("Error creating post in Appwrite:", error.response || error);
             throw error;
         }
     }
-    
+
     async updatePost({ title, slug, content, featuredImage, status }) {
         try {
             return await this.databases.updateDocument(
@@ -129,14 +117,17 @@ export class Service {
 
     async getFilePreview(fileId) {
         if (!fileId) {
-            console.log("Error: Missing fileId for preview");
-            return false;
+            return "/path-to-placeholder-image.png";
         }
         try {
-            return await this.bucket.getFilePreview(conf.bucketId, fileId);
+            const preview = await this.bucket.getFilePreview(conf.bucketId, fileId);
+            if (preview && preview.href) {
+                return preview.href;
+            } else {
+                return "/path-to-placeholder-image.png";
+            }
         } catch (error) {
-            console.log("Error in getFilePreview:", error);
-            return false;
+            return "/path-to-placeholder-image.png";
         }
     }
 }

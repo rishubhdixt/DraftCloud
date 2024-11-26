@@ -1,36 +1,36 @@
-import React, { useEffect, useState } from 'react'
-import service from '../appwrite/config'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import service from '../appwrite/config';
+import { Link } from 'react-router-dom';
 
-function PostCard({ title, featuredImage, $id }) {
+function PostCard({ TITLE, FEATURED_IMAGE, $id }) {
   const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
-    // Fetch the file preview URL
-    if (featuredImage) {
-      service.getFilePreview(featuredImage)
+    if (FEATURED_IMAGE) {
+      service.getFilePreview(FEATURED_IMAGE)
         .then((previewUrl) => {
-          if (previewUrl) {
-            setImagePreview(previewUrl.href || previewUrl); // assuming previewUrl is an object with href
+          if (previewUrl && previewUrl.href) {
+            setImagePreview(previewUrl.href);
+          } else if (previewUrl) {
+            setImagePreview(previewUrl);
           } else {
-            console.log("Error fetching preview for file:", featuredImage);
+            setImagePreview(null);
           }
         })
-        .catch((error) => {
-          console.log("Error fetching image preview:", error);
+        .catch(() => {
+          setImagePreview(null);
         });
     }
-  }, [featuredImage]);
+  }, [FEATURED_IMAGE]);
 
   return (
     <Link to={`/post/${$id}`}>
       <div className="w-full bg-white shadow-lg rounded-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 ease-in-out">
         <div className="w-full h-64 bg-gray-200 flex justify-center items-center">
-          {/* Show image if preview URL is available */}
           {imagePreview ? (
             <img
               src={imagePreview}
-              alt={title}
+              alt={TITLE}
               className="object-cover w-full h-full rounded-t-xl"
             />
           ) : (
@@ -38,7 +38,7 @@ function PostCard({ title, featuredImage, $id }) {
           )}
         </div>
         <div className="p-6">
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">{title}</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">{TITLE}</h2>
         </div>
       </div>
     </Link>
