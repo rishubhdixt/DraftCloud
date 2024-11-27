@@ -7,7 +7,6 @@ function Footer() {
     <section className="relative overflow-hidden py-10 bg-gradient-to-r from-blue-900 via-blue-800 to-black border-t-2 border-t-gray-700">
       <div className="relative z-10 mx-auto max-w-7xl px-4">
         <div className="-m-6 flex flex-wrap">
-          
           <div className="w-full p-6 md:w-1/2 lg:w-5/12">
             <div className="flex h-full flex-col justify-between">
               <div className="mb-4 inline-flex items-center">
@@ -21,11 +20,13 @@ function Footer() {
                 <p className="text-xs text-gray-400 mt-2">
                   Developed by <a href="https://github.com/rishubhdixt" className="text-blue-400 hover:underline">Rishubh Dixit</a>
                 </p>
+                <p className="text-xs text-gray-400 mt-2">
+                  Connect on <a href="https://www.linkedin.com/in/rishubh-dixit-0269801a0?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" className="text-blue-400 hover:underline">LinkedIn</a>
+                </p>
               </div>
             </div>
           </div>
 
-         
           <div className="w-full p-6 md:w-1/2 lg:w-2/12">
             <div className="h-full">
               <h3 className="tracking-px mb-9 text-xs font-semibold uppercase text-gray-500">Company</h3>
@@ -54,7 +55,6 @@ function Footer() {
             </div>
           </div>
 
-          {/* Support Links */}
           <div className="w-full p-6 md:w-1/2 lg:w-2/12">
             <div className="h-full">
               <h3 className="tracking-px mb-9 text-xs font-semibold uppercase text-gray-500">Support</h3>
@@ -83,7 +83,6 @@ function Footer() {
             </div>
           </div>
 
-          {/* Legal Links */}
           <div className="w-full p-6 md:w-1/2 lg:w-3/12">
             <div className="h-full">
               <h3 className="tracking-px mb-9 text-xs font-semibold uppercase text-gray-500">Legals</h3>
@@ -113,3 +112,4 @@ function Footer() {
 }
 
 export default Footer;
+
