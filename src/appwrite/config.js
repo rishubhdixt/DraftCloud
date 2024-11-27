@@ -8,9 +8,7 @@ export class Service {
 
     constructor() {
         this.client = new Client();
-        this.client
-            .setEndpoint(conf.appwriteUrl)
-            .setProject(conf.appwriteProjectId);
+        this.client.setEndpoint(conf.appwriteUrl).setProject(conf.appwriteProjectId);
         this.databases = new Databases(this.client);
         this.bucket = new Storage(this.client);
     }
@@ -21,7 +19,6 @@ export class Service {
                 const fileResponse = await this.uploadFile(featuredImage);
                 featuredImage = fileResponse.$id;
             }
-
             return await this.databases.createDocument(
                 conf.databaseId,
                 conf.collectionId,
@@ -35,18 +32,17 @@ export class Service {
                 }
             );
         } catch (error) {
+            console.error("Error in createPost:", error);
             throw error;
         }
     }
 
     async updatePost({ title, slug, content, featuredImage, status }) {
         try {
-            // If the featuredImage is a file (not a string), upload it
             if (featuredImage && typeof featuredImage !== "string") {
                 const fileResponse = await this.uploadFile(featuredImage);
                 featuredImage = fileResponse.$id;
             }
-    
             return await this.databases.updateDocument(
                 conf.databaseId,
                 conf.collectionId,
@@ -59,46 +55,33 @@ export class Service {
                 }
             );
         } catch (error) {
-            console.log("Error in update post Appwrite:", error);
+            console.error("Error in updatePost:", error);
         }
     }
-    
 
     async deletePost(slug) {
         try {
-            await this.databases.deleteDocument(
-                conf.databaseId,
-                conf.collectionId,
-                slug
-            );
+            await this.databases.deleteDocument(conf.databaseId, conf.collectionId, slug);
             return true;
         } catch (error) {
-            console.log("Error in delete post Appwrite service:", error);
+            console.error("Error in deletePost:", error);
             return false;
         }
     }
 
     async getPost(slug) {
         try {
-            return await this.databases.getDocument(
-                conf.databaseId,
-                conf.collectionId,
-                slug
-            );
+            return await this.databases.getDocument(conf.databaseId, conf.collectionId, slug);
         } catch (error) {
-            console.log("Error in get post Appwrite:", error);
+            console.error("Error in getPost:", error);
         }
     }
 
     async getPosts(queries = [Query.equal("STATUS", "active")]) {
         try {
-            return await this.databases.listDocuments(
-                conf.databaseId,
-                conf.collectionId,
-                queries
-            );
+            return await this.databases.listDocuments(conf.databaseId, conf.collectionId, queries);
         } catch (error) {
-            console.log("Error in get posts Appwrite:", error);
+            console.error("Error in getPosts:", error);
             return false;
         }
     }
@@ -107,7 +90,7 @@ export class Service {
         try {
             return await this.bucket.createFile(conf.bucketId, ID.unique(), file);
         } catch (error) {
-            console.log("Upload file Appwrite service:", error);
+            console.error("Error in uploadFile:", error);
             return false;
         }
     }
@@ -117,24 +100,20 @@ export class Service {
             await this.bucket.deleteFile(conf.bucketId, fileId);
             return true;
         } catch (error) {
-            console.log("Delete file Appwrite service:", error);
+            console.error("Error in deleteFile:", error);
             return false;
         }
     }
 
-    async getFilePreview(fileId) {
+    getFilePreview(fileId) {
         if (!fileId) {
-            return "/path-to-placeholder-image.png";
+            return "https://via.placeholder.com/800x400.png?text=No+Image+Available";
         }
         try {
-            const preview = await this.bucket.getFilePreview(conf.bucketId, fileId);
-            if (preview && preview.href) {
-                return preview.href;
-            } else {
-                return "/path-to-placeholder-image.png";
-            }
+            return this.bucket.getFilePreview(conf.bucketId, fileId);
         } catch (error) {
-            return "/path-to-placeholder-image.png";
+            console.error("Error in getFilePreview:", error);
+            return "https://via.placeholder.com/800x400.png?text=No+Image+Available";
         }
     }
 }
