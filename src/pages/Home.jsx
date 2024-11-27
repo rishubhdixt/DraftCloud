@@ -2,24 +2,27 @@ import { useEffect, useState } from "react";
 import { Container, PostCard } from "../components";
 import service from "../appwrite/config";
 import { useNavigate } from "react-router-dom";
-
+import { useSelector } from "react-redux"; 
 function Home() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+  const isLoggedIn = useSelector((state) => state.auth.status); 
 
   useEffect(() => {
-    service.getPosts().then((data) => {
-      if (data) {
-        setPosts(data.documents);
-      }
-    });
-  }, []);
+    if (isLoggedIn) {
+      service.getPosts().then((data) => {
+        if (data) {
+          setPosts(data.documents);
+        }
+      });
+    }
+  }, [isLoggedIn]);
 
   const handleAddPostClick = () => {
     navigate("/login");
   };
 
-  if (posts.length === 0) {
+  if (!isLoggedIn) {
     return (
       <div className="w-full min-h-screen bg-gradient-to-r from-gray-800 via-gray-900 to-black flex items-center justify-center">
         <Container>
