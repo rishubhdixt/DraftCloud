@@ -18,11 +18,34 @@ function Footer() {
                   &copy; {new Date().getFullYear()}. All Rights Reserved by Rishubh Dixit.
                 </p>
                 <p className="text-xs text-gray-400 mt-2">
-                  Developed by <a href="https://github.com/rishubhdixt" className="text-blue-400 hover:underline">Rishubh Dixit</a>
+                  Developed by Rishubh Dixit
                 </p>
-                <p className="text-xs text-gray-400 mt-2">
-                  Connect on <a href="https://www.linkedin.com/in/rishubh-dixit-0269801a0?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" className="text-blue-400 hover:underline">LinkedIn</a>
-                </p>
+                <div className="flex items-center mt-2 space-x-4">
+                  <a
+                    href="https://github.com/rishubhdixt"
+                    className="text-gray-300 hover:text-gray-100"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg"
+                      alt="GitHub"
+                      className="w-6 h-6"
+                    />
+                  </a>
+                  <a
+                    href="https://www.linkedin.com/in/rishubh-dixit-0269801a0?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+                    className="text-blue-400 hover:text-blue-300"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Linkedin_icon.svg"
+                      alt="LinkedIn"
+                      className="w-6 h-6"
+                    />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
