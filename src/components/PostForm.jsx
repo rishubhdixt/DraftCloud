@@ -41,19 +41,19 @@ export default function PostForm({ post }) {
             const payload = {
                 title: data.title,
                 content: data.content,
-                featuredImage: file ? file.$id : undefined, // Ensure file ID is passed
+                featuredImage: file ? file.$id : undefined, 
                 status: data.status,
                 userID: userData.$id,
             };
     
-            // If there's no existing post, create a new one
+            
             if (!post) {
                 const dbPost = await service.createPost(slug, payload);
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
                 }
             } else {
-                // Logic for updating the post
+                
                 const updatedPost = await service.updatePost({
                     ...payload,
                     slug: post.$id,
