@@ -10,9 +10,9 @@ function Home() {
   const userData = useSelector((state) => state.auth.userData);
   
   useEffect(() => {
-    console.log(userData)
+    
     if (isLoggedIn) {
-      console.log("home",userData)
+      
       service.getPosts().then((data) => {
         if (data) {
           setPosts(data.documents);

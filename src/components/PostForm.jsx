@@ -21,7 +21,7 @@ export default function PostForm({ post }) {
     const submit = async (data) => {
         try {
             if (!userData || !userData.$id) {
-                console.error("User is not logged in. Cannot submit post.");
+          
                 return;
             }
     
@@ -30,7 +30,6 @@ export default function PostForm({ post }) {
     
             
             if (data.image && data.image[0]) {
-                console.log("Uploading file:", data.image[0]);
                 file = await service.uploadFile(data.image[0]);
                 if (!file) {
                     console.error("File upload failed");

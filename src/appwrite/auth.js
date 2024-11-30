@@ -60,7 +60,7 @@ export class AuthService {
     }
 
     async logOut(){
-        console.log("im logged  out")
+   
         try {
            await this.account.deleteSessions();
             

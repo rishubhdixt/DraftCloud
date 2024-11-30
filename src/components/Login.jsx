@@ -23,9 +23,9 @@ const login= async (data)=>{
    try {
     const session =await authService.login(data);
     if(session){
-        console.log(session)
+        
         const userData = await authService.getCurrentUser();
-        console.log("user data is ",userData)
+        
         if(userData){
         
             dispatch(authlogin(userData))

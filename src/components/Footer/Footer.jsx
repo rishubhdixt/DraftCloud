@@ -4,10 +4,9 @@ import Logo from '../Logo';
 
 function Footer() {
   return (
-    <section className="relative overflow-hidden py-10 bg-gradient-to-r from-blue-900 via-blue-800 to-black border-t-2 border-t-gray-700">
+    <section className="relative overflow-hidden py-10 bg-gradient-to-r from-blue-900 via-blue-800 to-black">
       <div className="relative z-10 mx-auto max-w-7xl px-4">
         <div className="-m-6 flex flex-wrap">
-          
           <div className="w-full p-6 md:w-1/2 lg:w-5/12">
             <div className="flex h-full flex-col justify-between">
               <div className="mb-4 inline-flex items-center">
@@ -19,13 +18,14 @@ function Footer() {
                   &copy; {new Date().getFullYear()}. All Rights Reserved by Rishubh Dixit.
                 </p>
                 <p className="text-xs text-gray-400 mt-2">
-                  Developed by <a href="https://github.com/rishubhdixt" className="text-blue-400 hover:underline">Rishubh Dixit</a>
+                  Developed by{' '}
+                  <a href="https://github.com/rishubhdixt" className="text-blue-400 hover:underline">
+                    Rishubh Dixit
+                  </a>
                 </p>
               </div>
             </div>
           </div>
-
-         
           <div className="w-full p-6 md:w-1/2 lg:w-2/12">
             <div className="h-full">
               <h3 className="tracking-px mb-9 text-xs font-semibold uppercase text-gray-500">Company</h3>
@@ -53,8 +53,6 @@ function Footer() {
               </ul>
             </div>
           </div>
-
-          {/* Support Links */}
           <div className="w-full p-6 md:w-1/2 lg:w-2/12">
             <div className="h-full">
               <h3 className="tracking-px mb-9 text-xs font-semibold uppercase text-gray-500">Support</h3>
@@ -82,8 +80,6 @@ function Footer() {
               </ul>
             </div>
           </div>
-
-          {/* Legal Links */}
           <div className="w-full p-6 md:w-1/2 lg:w-3/12">
             <div className="h-full">
               <h3 className="tracking-px mb-9 text-xs font-semibold uppercase text-gray-500">Legals</h3>
