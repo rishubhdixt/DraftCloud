@@ -8,20 +8,28 @@ import {useForm} from 'react-hook-form'
 import authService from '../appwrite/auth'
 import { useDispatch } from 'react-redux'
 
+
 function Login() {
+    
+    
     const navigate=useNavigate();
     const dispatch=useDispatch();
     const {register,handleSubmit}=useForm()
 const[error,setError]=useState("");
 const login= async (data)=>{
+    
     setError("")
 
    try {
     const session =await authService.login(data);
     if(session){
+        console.log(session)
         const userData = await authService.getCurrentUser();
+        console.log("user data is ",userData)
         if(userData){
+        
             dispatch(authlogin(userData))
+            
             navigate("/")
         }
     }
@@ -31,7 +39,7 @@ const login= async (data)=>{
     
    }
 }
-    
+   
 
   return (
     <div   className='flex items-center justify-center w-full'>

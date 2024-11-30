@@ -9,7 +9,7 @@ function Logo({width='100px'}) {
          alt="Logo" 
          style={{ 
            width, 
-           borderRadius: '50%' // This will make the logo round
+           borderRadius: '50%' 
          }} 
        />
     </div>

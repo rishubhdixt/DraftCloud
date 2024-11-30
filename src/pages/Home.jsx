@@ -7,9 +7,12 @@ function Home() {
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.status); 
-
+  const userData = useSelector((state) => state.auth.userData);
+  
   useEffect(() => {
+    console.log(userData)
     if (isLoggedIn) {
+      console.log("home",userData)
       service.getPosts().then((data) => {
         if (data) {
           setPosts(data.documents);

@@ -20,15 +20,15 @@ export default function PostForm({ post }) {
 
     const submit = async (data) => {
         try {
-            if (!data.title) {
-                console.error("Title is required");
+            if (!userData || !userData.$id) {
+                console.error("User is not logged in. Cannot submit post.");
                 return;
             }
     
             const slug = data.slug || slugTransform(data.title);
             let file;
     
-            // Upload the file if it's selected
+            
             if (data.image && data.image[0]) {
                 console.log("Uploading file:", data.image[0]);
                 file = await service.uploadFile(data.image[0]);
@@ -41,19 +41,19 @@ export default function PostForm({ post }) {
             const payload = {
                 title: data.title,
                 content: data.content,
-                featuredImage: file ? file.$id : undefined, // Ensure file ID is passed
+                featuredImage: file ? file.$id : undefined, 
                 status: data.status,
                 userID: userData.$id,
             };
     
-            // If there's no existing post, create a new one
+            
             if (!post) {
                 const dbPost = await service.createPost(slug, payload);
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
                 }
             } else {
-                // Logic for updating the post
+            
                 const updatedPost = await service.updatePost({
                     ...payload,
                     slug: post.$id,
